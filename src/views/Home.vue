@@ -31,6 +31,9 @@ const transactionForm = reactive({
 	description: ''
 })
 const createTransaction = (e: any) => {
+	// const res = ...transactionForm.includes('')
+	// console.log(res);
+
 	dispatch(`transaction/${TransactionActionType.addTransaction}`, { ...transactionForm })
 	transactionForm.amount = ''
 	transactionForm.title = ''
@@ -156,6 +159,7 @@ const createTransaction = (e: any) => {
 			</div>
 			<div class="mt-4 flex justify-center">
 				<button
+					:disabled="!transactionForm.title || !transactionForm.amount"
 					@click="createTransaction"
 					type="button"
 					class="text-center px-5 py-2 text-sm font-medium focus:outline-none bg-white-primary dark:bg-dark-primary rounded-xl"

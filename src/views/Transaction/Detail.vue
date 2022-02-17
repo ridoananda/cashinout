@@ -2,11 +2,22 @@
 import moment from 'moment';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import router from '../../routes';
 import { useStore } from '../../store';
-const { state, getters } = useStore()
+import { TransactionActionType } from '../../store/modules/transaction/action-types';
+const { dispatch, state, getters } = useStore()
+
 const transactionType = (amount: number) => getters['transaction/transactionType'](amount)
 const route = useRoute()
 const transaction = state.transaction.transactions.find((transaction: any) => transaction.slug === route.params.slug)
+const deleteTransaction = () => {
+	const confirmation = confirm('Are you sure?')
+	if (confirmation) {
+		dispatch(`transaction/${TransactionActionType.deleteTransaction}`, transaction)
+		return router.replace('/')
+	}
+	return false
+}
 </script>
 <template>
 	<div class="container">
@@ -19,5 +30,9 @@ const transaction = state.transaction.transactions.find((transaction: any) => tr
 			on {{ moment(transaction.date).format('dddd, MMM D yyyy') }}
 		</div>
 		<div class="text-sm lg:text-base leading-relaxed mt-3">{{ transaction.description }}</div>
+		<div
+			class="text-xs text-red-400 text-right mt-2 cursor-pointer"
+			@click="deleteTransaction"
+		>Delete Transaction</div>
 	</div>
 </template>

@@ -1,4 +1,5 @@
 export enum TransactionActionType {
 	fetch = 'fetchTransaction',
-	addTransaction = 'addTransaction'
+	addTransaction = 'addTransaction',
+	deleteTransaction = 'deleteTransaction',
 }

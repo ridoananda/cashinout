@@ -30,6 +30,20 @@ export const actions: ActionTree<State, RootState> = {
 		commit(TransactionMutationType.SET_INCOME, income)
 		commit(TransactionMutationType.SET_EXPENSES, expenses)
 		return true
+	},
+	async [TransactionActionType.deleteTransaction]({ commit, state }, payload: FormPayload): Promise<boolean> {
+		let { balance, income, expenses } = state;
+		if (payload.amount > 0) {
+			income = state.income - payload.amount
+		} else {
+			expenses = state.expenses - payload.amount
+		}
+		balance = state.balance - payload.amount
+		commit(TransactionMutationType.DELETE_TRANSACTION, payload)
+		commit(TransactionMutationType.SET_BALANCE, balance)
+		commit(TransactionMutationType.SET_INCOME, income)
+		commit(TransactionMutationType.SET_EXPENSES, expenses)
+		return true
 	}
 }
 // export type AugmentedActionContext = {

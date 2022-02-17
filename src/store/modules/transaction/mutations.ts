@@ -16,6 +16,10 @@ export const mutations: MutationTree<State> = {
 	[MutationType.ADD_TRANSACTION](state: State, payload: Transaction): void {
 		state.transactions.unshift(payload)
 	},
+	[MutationType.DELETE_TRANSACTION](state: State, payload: Transaction): void {
+		const data = state.transactions.findIndex((transaction: any) => transaction.slug == payload.slug)
+		state.transactions.splice(data, 1)
+	},
 }
 // export type Mutations<S = State> = {
 // 	[MutationType.SET_BALANCE](state: State, payload: Balance): void;

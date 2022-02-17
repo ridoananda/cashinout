@@ -93,6 +93,7 @@ const createTransaction = async (e: any) => {
 								</div>
 								<div class="mt-4 flex justify-center">
 									<button
+										:disabled="!form.title || !form.amount"
 										type="submit"
 										class="text-center px-5 py-2 text-sm font-medium focus:outline-none bg-white-primary dark:bg-dark-primary rounded-xl"
 									>Create</button>
